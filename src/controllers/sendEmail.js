@@ -18,9 +18,13 @@ const sendEmail = async (email) => {
     const info = await transporter.sendMail({
       from: '"Akasha"',
       to: email, // recipient email
-      subject: "Register Succesfull TO THE ECOMMERCE WEB ✔", // Subject line
-      text: "Successfully register to the ecommerce app", // Plain text body
-      html: "<b>Successfully register</b>", // HTML body
+      subject: "Welcome to Our E-Commerce App ✔", // Subject line
+      text: "Thank you for registering with us! You can now start shopping and enjoy all the amazing deals on our platform.", // Plain text body
+      html: `
+        <h1>Welcome to Our E-Commerce App!</h1>
+        <p>Thank you for registering with us! You can now start shopping and enjoy all the amazing deals on our platform.</p>
+        <p><strong>Start exploring now!</strong></p>
+      `, // HTML body
     });
 
     return { message: `Message sent: ${info.messageId}` };
