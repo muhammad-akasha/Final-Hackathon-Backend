@@ -1,7 +1,6 @@
 import axios from "axios";
 import fs from "fs";
 import FormData from "form-data"; // Import FormData for
-import multer from "multer";
 
 // image name field required
 const uploadSingle = async (filePath) => {
