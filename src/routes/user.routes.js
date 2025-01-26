@@ -10,13 +10,12 @@ import {
 } from "../controllers/user.controller.js";
 import { sendEmail } from "../controllers/sendEmail.js";
 import authenticateUser from "../middleware/auth.middleware.js";
-import { upload } from "../middleware/multer.middleware.js";
 
 const router = express.Router();
 router.get("/users", getAllUsers);
 router.get("/getuser", authenticateUser, getLoginUser);
 router.post("/updateprofile", authenticateUser, updateProfile);
-router.post("/register", upload.single("image"), registerUser);
+router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/refreshtoken", refreshToken);

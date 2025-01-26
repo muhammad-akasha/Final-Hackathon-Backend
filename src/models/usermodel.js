@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema(
       maxlength: 30, // Maximum length of 30 characters
       trim: true, // Removes any leading or trailing whitespace
     },
-    image: { type: String },
     email: {
       type: String,
       required: [true, "email is required"],
@@ -19,27 +18,21 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "password is required"],
-      minlength: 6, // Minimum length of 3 characters
-      maxlength: 30, // Maximum length of 30 characters
       trim: true, // Removes any leading or trailing whitespace
-    },
-    profilePic: {
-      type: {
-        profilePic: { type: String, required: true }, // URL of the uploaded image
-        deleteUrl: { type: String, required: true }, // URL for deleting the image
-      },
-      required: [true, "Profile picture is required"],
-      _id: false,
     },
     role: {
       type: String,
       enum: ["admin", "user"],
       required: [true, "Please add role"],
     },
-    orders: [
+    cnic: {
+      type: String,
+      required: [true, "Please add Cnic"],
+    },
+    Loans: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Order",
+        ref: "Loan",
       },
     ],
   },

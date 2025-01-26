@@ -5,8 +5,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./src/db/index.js";
 import userRoutes from "./src/routes/user.routes.js";
-import productRoute from "./src/routes/product.route.js";
-import orderRoutes from "./src/routes/order.routes.js";
+import loanRoutes from "./src/routes/loan.route.js";
+import guaranterRoute from "./src/routes/guarantor.route.js";
 
 const app = express();
 app.use(express.json());
@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Remove the trailing slash
+    origin: ["https://hackathon-frontend-liard.vercel.app"], // Remove the trailing slash
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true, // Allow cookies to be sent
   })
@@ -28,8 +28,8 @@ app.get("/", (req, res) => {
 
 // routes
 app.use("/api/v1", userRoutes);
-app.use("/api/v1", productRoute);
-app.use("/api/v1", orderRoutes);
+app.use("/api/v1", loanRoutes);
+app.use("/api/v1", guaranterRoute);
 
 connectDB()
   .then(() => {

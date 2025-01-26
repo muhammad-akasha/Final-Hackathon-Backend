@@ -1,10 +1,8 @@
 import User from "../models/usermodel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import fs from "fs";
 import { sendEmail } from "./sendEmail.js";
 import dotenv from "dotenv";
-import { uploadSingle } from "./uploadImage.js";
 dotenv.config();
 
 const getUserDetail = async (req) => {
@@ -57,28 +55,23 @@ const getAllUsers = async (req, res) => {
 
 // register user
 const registerUser = async (req, res) => {
-  const { userName, email, password, role } = req.body;
-  const image = req.file.path;
+  const { userName, email, password, role, cnic } = req.body;
 
   if (!userName) return res.status(400).json({ message: "UserName required" });
   if (!email) return res.status(400).json({ message: "email required" });
   if (!password) return res.status(400).json({ message: "password required" });
   if (!role) return res.status(400).json({ message: "role required" });
-  if (!image) return res.status(400).json({ message: "picture required" });
+  if (!cnic) return res.status(400).json({ message: "CNIC required" });
 
   const user = await User.findOne({ email: email });
   // check email already used or not
   if (user) return res.status(401).json({ message: "user already exist" });
   try {
-    const profilePic = await uploadSingle(image);
     const createUser = await User.create({
       email,
       password,
       userName,
-      profilePic: {
-        profilePic: profilePic.imageUrl,
-        deleteUrl: profilePic.delteUrl,
-      },
+      cnic,
       role,
     });
     const emailSend = await sendEmail(email);
